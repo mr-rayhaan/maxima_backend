@@ -88,8 +88,8 @@ class BooksController extends Controller
     {
         //validate user input
         $validator = Validator::make($request->all(), [
-            'title' =>      'required|String|max:50',
-            'description' => 'required|String|max:65535',
+            'title' =>      'required|String|min:5|max:20',
+            'description' => 'required|String|min:5|max:80',
             'image' =>      'required|mimes:jpeg,bmp,png,gif,svg',
             'book' =>       'required|mimes:pdf'
         ]);
@@ -130,8 +130,8 @@ class BooksController extends Controller
         //validate user input
         $validator = Validator::make($request->all(), [
             'id' =>         'required|Integer',
-            'title' =>      'nullable|String|max:50',
-            'description' => 'nullable|String|max:65535',
+            'title' =>      'nullable|String|min:5|max:30',
+            'description' => 'nullable|String|min:5|max:80',
             'image' =>      'nullable|mimes:jpeg,bmp,png,gif,svg',
             'book' =>       'nullable|mimes:pdf'
         ]);
@@ -203,7 +203,8 @@ class BooksController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Book has been deleted successfully.'
+                'message' => 'Book has been deleted successfully.',
+                'book'    => $existingBook
             ]);
         }
         return response()->json([
